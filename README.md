@@ -1,66 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# NYT Best Sellers API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a Laravel-based JSON API that acts as a wrapper around the New York Times Best Sellers API. It provides endpoints to fetch best-selling books based on various filters like author, title, ISBN, and more.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. [Prerequisites](#prerequisites)
+2. [Setup](#setup)
+3. [Environment Variables](#environment-variables)
+4. [Running the Project](#running-the-project)
+5. [Running Tests](#running-tests)
+6. [Postman Collection](#postman-collection)
+7. [API Endpoints](#api-endpoints)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Before you begin, ensure you have the following installed:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP (>= 8.0)
+- Composer
+- Laravel (>= 9.x)
+- MySQL or any other supported database
+- Git
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Setup
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. Clone the repository:
+git clone https://github.com/your-username/nyt-best-sellers-api.git
+cd nyt-best-sellers-api
 
-### Premium Partners
+2. Install dependencies:
+composer install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. Generate the Laravel application key:
+php artisan key:generate
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Create a `.env` file by copying the `.env.example` file:
+cp .env.example .env
 
-## Code of Conduct
+5. Update the `.env` file with your database credentials and NYT API key
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. Run migrations to set up the database:
+php artisan migrate
 
-## Security Vulnerabilities
+## Environment Variables
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Update the following variables in the `.env` file:
+
+### Database Configuration
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password
+
+
+### NYT API Key
+NYT_API_KEY=your_nyt_api_key
+
+
+---
+
+## Running the Project
+
+1. Start the Laravel development server:
+php artisan serve
+
+2. The API will be available at:
+http://localhost:8000/api/v1
+
+
+---
+
+## Running Tests
+
+To run the unit and feature tests, use the following command:
+php artisan test
+
+Copy
+
+### Test Coverage
+- **Unit Tests**: Tests for the repository and service layers.
+- **Feature Tests**: Tests for the API endpoints.
+
+---
+
+## Postman Collection
+
+You can find the Postman collection for this API here:
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/14865918/2sAYkHnHSf)
+
+This collection includes examples of valid and invalid requests for all endpoints.
+
+---
+
+## API Endpoints
+
+### Get Best Sellers
+- **URL**: `/api/v1/best-sellers`
+- **Method**: `GET`
+- **Query Parameters**:
+  - `author` (optional): Filter by author name.
+  - `isbn` (optional): Filter by ISBN(s). Multiple ISBNs can be separated by semicolons.
+  - `title` (optional): Filter by book title.
+  - `offset` (optional): Pagination offset (must be a multiple of 20).
+  - `age-group` (optional): Filter by target age group.
+
+### Example Requests
+- Get best sellers by author:
+GET /api/v1/best-sellers?author=Stephen+King
+
+- Get best sellers by ISBN:
+GET /api/v1/best-sellers?isbn=9780307743657;9780345806789
+
+- Get best sellers with pagination:
+GET /api/v1/best-sellers?offset=20
+
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+## Acknowledgments
+
+- [New York Times API](https://developer.nytimes.com/) for providing the Best Sellers data.
+- [Laravel](https://laravel.com/) for the awesome PHP framework.
