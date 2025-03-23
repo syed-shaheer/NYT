@@ -31,7 +31,7 @@ Before you begin, ensure you have the following installed:
 ## Setup
 
 1. Clone the repository:
-git clone https://github.com/your-username/nyt-best-sellers-api.git
+git clone [https://github.com/syed-shaheer/NYT.git]
 cd nyt-best-sellers-api
 
 2. Install dependencies:
